@@ -1,0 +1,38 @@
+.slides-container {
+    width: 620px;
+    margin: 0 auto;
+    border: 2px solid;
+    padding: 2px
+}
+
+.slides-container .slides {
+    position: relative;
+    width: 620px;
+    height: 200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.slides-container .slide {
+    position: absolute;
+    display:block;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.slides-container .slide:first-child {
+    z-index: 10
+}
+
+.slides-container .slides-nav {
+    overflow: hidden;
+}
+
+.slides-container .slides-nav button {
+    float:left
+}
+
+.slides-container .slides-nav button:last-child {
+    float:right
+}
