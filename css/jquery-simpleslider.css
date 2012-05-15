@@ -1,14 +1,12 @@
 .slides-container {
-    width: 620px;
-    margin: 0 auto;
-    border: 2px solid;
-    padding: 2px
-}
-
-.slides-container .slides {
     position: relative;
     width: 620px;
     height: 200px;
+}
+.slides-container .slides {
+    position: relative;
+    width: 100%;
+    height: 100%;
     margin: 0 auto;
     overflow: hidden;
 }
@@ -25,14 +23,31 @@
     z-index: 10
 }
 
-.slides-container .slides-nav {
+.slides-container button.slides-nav {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: 30;
+    text-indent: -9999px;
     overflow: hidden;
+    background: #000 url(data:image/gif;base64,R0lGODlhTAA9AMQAABAQEDAwMO/v78/Pz7+/v39/f6+vr1BQUCAgIGBgYJ+fn0BAQN/f33BwcI+Pj////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAABMAD0AAAXkICSOZGmeaKqubOu+cCzPdG3feK7vfO//wKBwSCwaj8ikcslsOp/QqHRKrVqv2Fog4NsiAYTHY8ALPwiAImAgFi90gfY4PVTIyTuzWDEsyAUIPAACcgVBCXIPbz1xcgk/AYRthj8Nf1yCkmIGQnZtAnQ6eg8MoT9rcgQ7jW2YQqxirjeDcg5Efp+mNweJj0G8cgc9uGICsjyRhT+eYqU+qG2cp2zRPsxzQbSTPJafga+aD984CImLQ4itOuVtvkULBgTCOwcGBvNZ+fr7/P3+/wADChxIsKDBgwgTKlzIsKFDKSEAADs%3D) no-repeat;
+    width: 35px;
+    height: 40px;
+    border:0;
+    margin-top: -20px;
+    cursor: pointer;
 }
 
-.slides-container .slides-nav button {
-    float:left
+.slides-container button.slides-nav {
+    background-position: -3px -10px;
 }
 
-.slides-container .slides-nav button:last-child {
-    float:right
+.slides-container button.slides-nav:last-child {
+    left: auto;
+    right: 0;
+    background-position: -39px -10px;
+}
+
+.slides-container button.slides-nav:active {
+    border: 2px solid;
 }
