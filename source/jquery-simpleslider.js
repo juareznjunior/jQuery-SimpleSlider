@@ -1,4 +1,12 @@
-;(function($,window,document) {
+/*!
+ * jQuery SimpleSlider
+ * 
+ * @autor......: Juarez Gonçalves Nery Junior
+ * @email......: juareznjunior@gmail.com
+ * @twitter....: @juareznjunior
+ * @git........: https://github.com/juareznjunior/jQuery-SimpleSlider
+ */
+;(function($,window,document,undefined) {
 
 	var SimpleSlider = function($container, options) {
 
