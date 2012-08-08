@@ -6,6 +6,14 @@
  * @twitter....: @juareznjunior
  * @git........: https://github.com/juareznjunior/jQuery-SimpleSlider
  */
+/*!
+ * jQuery SimpleSlider
+ * 
+ * @autor......: Juarez Gonçalves Nery Junior
+ * @email......: juareznjunior@gmail.com
+ * @twitter....: @juareznjunior
+ * @git........: https://github.com/juareznjunior/jQuery-SimpleSlider
+ */
 ;(function($,window,document,undefined) {
 
 	var SimpleSlider = function($container, options) {
@@ -22,7 +30,8 @@
 		// private
 		var leftPosition
 			,timer
-			,delay;
+			,delay
+			,transition;
 
 		// private
 		// return html markup buttons
@@ -44,10 +53,23 @@
 			,height: 200
 			,nav:  true
 			,delay: 8000
+			,transition: 'slide'
 		},options);
 
 		// set timeout
 		delay = this.options.delay;
+
+		// transition
+		transition = {
+			slide: function(l) {
+				return { anim: {left:l},mprior: {left:0,zIndex:1} }
+			}
+			,fade: function(o) {
+				return { anim: {opacity:0},mprior: {zIndex:1,opacity:1} }				
+			}
+		}
+
+		transition = transition[ (this.options.transition === 'slide')  ? 'slide' : 'fade'];
 		
 		// container dimensions and className
 		$container.css({
@@ -107,11 +129,13 @@
 			// priority z-index next slide
 			$nextSlide.css('zIndex',9);
 
+			e = transition.call(this,e);
+
 			// left animate
-			$enabled.animate({'left':e},500,function(){
+			$enabled.animate(e.anim,500,function(){
 
 				// minor priority
-				$enabled.removeClass('enabled').css({left:0,zIndex:1});
+				$enabled.removeClass('enabled').css(e.mprior);
 
 				// set new $enabled slide
 				// priority z-index enabled slide
