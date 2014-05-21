@@ -6,14 +6,6 @@
  * @twitter....: @juareznjunior
  * @git........: https://github.com/juareznjunior/jQuery-SimpleSlider
  */
-/*!
- * jQuery SimpleSlider
- * 
- * @autor......: Juarez Gonçalves Nery Junior
- * @email......: juareznjunior@gmail.com
- * @twitter....: @juareznjunior
- * @git........: https://github.com/juareznjunior/jQuery-SimpleSlider
- */
 ;(function($,window,document,undefined) {
 
 	var SimpleSlider = function($container, options) {
@@ -31,49 +23,72 @@
 		var leftPosition
 			,timer
 			,delay
-			,transition;
+			,transition
+			,autoplay;
 
 		// private
 		// return html markup buttons
 		var htmlNavButtons = function() {
-			return '<button class="slides-nav" name="prev">Prev</button><button class="slides-nav" name="next">Next</button>';
-		}
+			return '<button class="slides-nav" name="prev" type="button">Prev</button><button class="slides-nav" name="next" type="button">Next</button>';
+		};
 
 		// private
 		// timeout next slide
 		var triggerTimeOut = function() {
-			timer = window.setTimeout(function(){
-				$nav.last().trigger('click');
-			},delay)
-		}
+			if ( true === autoplay ) {
+				timer = window.setTimeout(function(){
+					$nav.last().trigger('click');
+				},delay);
+			}
+		};
 
 		// options defaults
 		this.options = $.extend({},{
-			width: 620
+			 width: 620
 			,height: 200
 			,nav:  true
+			,autoplay: true
 			,delay: 8000
 			,transition: 'slide'
 		},options);
 
 		// set timeout
 		delay = this.options.delay;
+		
+		// set autoplay helper
+		autoplay = this.options.autoplay;
 
 		// transition
 		transition = {
 			slide: function(l) {
-				return { anim: {left:l},mprior: {left:0,zIndex:1} }
+				return {
+					anim: {
+						left:l
+					}
+					,mprior: {
+						 left:0
+						,zIndex:1
+					}
+				}
 			}
 			,fade: function(o) {
-				return { anim: {opacity:0},mprior: {zIndex:1,opacity:1} }				
+				return {
+					anim: {
+						opacity:'hide'
+					}
+					,mprior: {
+						zIndex:1
+						,display:'inherit'
+					}
+				}
 			}
-		}
+		};
 
 		transition = transition[ (this.options.transition === 'slide')  ? 'slide' : 'fade'];
 		
 		// container dimensions and className
 		$container.css({
-			width: this.options.width
+			 width: this.options.width
 			,height: this.options.height
 		}).addClass('slides-container');;
 
@@ -95,16 +110,14 @@
 		leftPosition = $container.width();
 
 		// delegate
-		$container.on('click','button.slides-nav',function(e) {
+		$container.on('click.__simpleslider__','button.slides-nav',function(e) {
 
 			e.preventDefault();
+
 			$nav.prop('disabled',true);
 
-			// if animated
-			$enabled.stop();
-
 			// stop timeout
-			window.clearTimeout(timer);
+			( timer && $enabled.stop() && window.clearTimeout(timer) );
 
 			// caches
 			$nextSlide = $enabled.next();
@@ -158,9 +171,8 @@
 
 	// jQuery Plugin expose
 	$.fn.simpleSlider = function(options) {
-		return this.each(function(data){
-			data = $.data(this,'SimpleSlider');
-			if ( undefined === data ) {
+		return this.each(function(){
+			if ( undefined === $.data(this,'SimpleSlider') ) {
 				$.data(this,'SimpleSlider',new SimpleSlider($(this),options));
 			}
 		});
